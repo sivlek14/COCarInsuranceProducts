@@ -20,6 +20,7 @@ class CarInsurance {
             fullCov: 'Full Coverage',
             specialFullCov: 'Special Full Coverage',
             megaCov: 'Mega Coverage',
+            superSaleCov: 'Super Sale',
         };
     }
 
@@ -36,11 +37,17 @@ class CarInsurance {
             const isFCov = (name === coverageTypes.fullCov);
             const isSFCov = (name === coverageTypes.specialFullCov);
             const isMCov = (name === coverageTypes.megaCov);
+            const isSSCov = (name === coverageTypes.superSaleCov);
 
             if (!isFCov && !isSFCov) {
                 if (product.price > 0)
-                    if (!isMCov)
+                    if (!isMCov) {
                         product.price = product.price - 1;
+
+                        if (isSSCov)
+                            product.price -= 1;
+                    }
+
             } else {
                 if (product.price < maxPrice) {
                     product.price += 1;
@@ -64,8 +71,12 @@ class CarInsurance {
                 if (!isFCov) {
                     if (!isSFCov) {
                         if (product.price > 0)
-                            if (!isMCov)
+                            if (!isMCov) {
                                 product.price -= 1;
+
+                                if (isSSCov)
+                                    product.price -= 1;
+                            }
                     } else
                         product.price = 0;
                 } else {

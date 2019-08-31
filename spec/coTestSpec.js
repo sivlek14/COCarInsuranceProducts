@@ -127,4 +127,21 @@ describe('CO Test', () => {
             expect(product.price).equal(infoProducts[i].expected.price);
         });
     });
+
+    it('Super Sale Coverage', () => {
+        const infoProducts = require('./seeds/superSale');
+        const arrayOfProducts = infoProducts.map(
+            product => new Product(
+                product.name,
+                product.sellIn,
+                product.price
+            )
+        );
+        const coTest = new CarInsurance(arrayOfProducts);
+
+        coTest.updatePrice().forEach((product, i) => {
+            expect(product.sellIn).equal(infoProducts[i].expected.sellIn);
+            expect(product.price).equal(infoProducts[i].expected.price);
+        });
+    });
 });
