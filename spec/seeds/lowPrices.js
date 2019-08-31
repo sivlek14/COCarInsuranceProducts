@@ -5,6 +5,8 @@ const infoProducts = [
     { name: 'Low Coverage', sellIn: -1, price: 0, expected: { sellIn: -2, price: 0 } },
     { name: 'Medium Coverage', sellIn: 1, price: 0, expected: { sellIn: 0, price: 0 } },
     { name: 'Medium Coverage', sellIn: -1, price: 0, expected: { sellIn: -2, price: 0 } },
+    { name: 'Super Sale', sellIn: 1, price: 0, expected: { sellIn: 0, price: 0 } },
+    { name: 'Super Sale', sellIn: -1, price: 0, expected: { sellIn: -2, price: 0 } },
 ];
 
 module.exports = infoProducts;

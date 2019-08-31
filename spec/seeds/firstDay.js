@@ -9,6 +9,7 @@ const infoProducts = [
     { name: 'Special Full Coverage', sellIn: 15, price: 20, expected: { sellIn: 14, price: 21 } },
     { name: 'Special Full Coverage', sellIn: 10, price: 49, expected: { sellIn: 9, price: 50 } },
     { name: 'Special Full Coverage', sellIn: 5, price: 49, expected: { sellIn: 4, price: 50 } },
+    { name: 'Super Sale', sellIn: 3, price: 6, expected: { sellIn: 2, price: 4 } },
 ];
 
 module.exports = infoProducts;
