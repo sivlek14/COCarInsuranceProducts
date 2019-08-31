@@ -47,7 +47,6 @@ class CarInsurance {
                         if (isSSCov)
                             product.price -= 1;
                     }
-
             } else {
                 if (product.price < maxPrice) {
                     product.price += 1;
