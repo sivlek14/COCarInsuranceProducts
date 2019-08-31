@@ -62,6 +62,10 @@ class CarInsurance {
                     }
                 }
             }
+
+            if (this.products[i].name === 'Mega Coverage') {
+                this.products[i].price = 80;
+            }
         }
 
         return this.products;
