@@ -11,62 +11,72 @@ class Product {
 class CarInsurance {
 
     constructor(products = []) {
+        /* CONST */
+        this.maxPrice = 50;
+        this.megaCoveragePrice = 80;
+        /*END CONST */
         this.products = products;
+        this.coverageTypes = {
+            fullCov: 'Full Coverage',
+            specialFullCov: 'Special Full Coverage',
+            megaCov: 'Mega Coverage',
+        };
     }
+
     updatePrice() {
-        for (var i = 0; i < this.products.length; i++) {
-            if (this.products[i].name != 'Full Coverage' && this.products[i].name != 'Special Full Coverage') {
-                if (this.products[i].price > 0) {
-                    if (this.products[i].name != 'Mega Coverage') {
-                        this.products[i].price = this.products[i].price - 1;
-                    }
-                }
+        const {
+            maxPrice,
+            megaCoveragePrice,
+            coverageTypes,
+            products,
+        } = this;
+
+        products.forEach(product => {
+            const { name } = product;
+            const isFCov = (name === coverageTypes.fullCov);
+            const isSFCov = (name === coverageTypes.specialFullCov);
+            const isMCov = (name === coverageTypes.megaCov);
+
+            if (!isFCov && !isSFCov) {
+                if (product.price > 0)
+                    if (!isMCov)
+                        product.price = product.price - 1;
             } else {
-                if (this.products[i].price < 50) {
-                    this.products[i].price = this.products[i].price + 1;
+                if (product.price < maxPrice) {
+                    product.price += 1;
 
-                    if (this.products[i].name == 'Special Full Coverage') {
-                        if (this.products[i].sellIn < 11) {
-                            if (this.products[i].price < 50) {
-                                this.products[i].price = this.products[i].price + 1;
-                            }
-                        }
+                    if (isSFCov) {
+                        if (product.sellIn < 11)
+                            if (product.price < maxPrice)
+                                product.price += 1;
 
-                        if (this.products[i].sellIn < 6) {
-                            if (this.products[i].price < 50) {
-                                this.products[i].price = this.products[i].price + 1;
-                            }
-                        }
+                        if (product.sellIn < 6)
+                            if (product.price < maxPrice)
+                                product.price += 1;
                     }
                 }
             }
 
-            if (this.products[i].name != 'Mega Coverage') {
-                this.products[i].sellIn = this.products[i].sellIn - 1;
-            }
+            if (!isMCov)
+                product.sellIn -= 1;
 
-            if (this.products[i].sellIn < 0) {
-                if (this.products[i].name != 'Full Coverage') {
-                    if (this.products[i].name != 'Special Full Coverage') {
-                        if (this.products[i].price > 0) {
-                            if (this.products[i].name != 'Mega Coverage') {
-                                this.products[i].price = this.products[i].price - 1;
-                            }
-                        }
-                    } else {
-                        this.products[i].price = this.products[i].price - this.products[i].price;
-                    }
+            if (product.sellIn < 0) {
+                if (!isFCov) {
+                    if (!isSFCov) {
+                        if (product.price > 0)
+                            if (!isMCov)
+                                product.price -= 1;
+                    } else
+                        product.price = 0;
                 } else {
-                    if (this.products[i].price < 50) {
-                        this.products[i].price = this.products[i].price + 1;
-                    }
+                    if (product.price < maxPrice)
+                        product.price += 1;
                 }
             }
 
-            if (this.products[i].name === 'Mega Coverage') {
-                this.products[i].price = 80;
-            }
-        }
+            if (isMCov)
+                product.price = megaCoveragePrice;
+        });
 
         return this.products;
     }
