@@ -15,6 +15,10 @@ class CarInsurance {
         this.maxPrice = 50;
         this.megaCoveragePrice = 80;
         /*END CONST */
+
+        if (!Array.isArray(products))
+            throw new TypeError('products must be an Array');
+
         this.products = products;
         this.coverageTypes = {
             fullCov: 'Full Coverage',
@@ -33,6 +37,9 @@ class CarInsurance {
         } = this;
 
         products.forEach(product => {
+            if (!(product instanceof Product))
+                throw new TypeError('All products must be an instance of Product');
+
             const { name } = product;
             const isFCov = (name === coverageTypes.fullCov);
             const isSFCov = (name === coverageTypes.specialFullCov);
